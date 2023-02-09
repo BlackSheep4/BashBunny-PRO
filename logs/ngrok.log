@@ -1,0 +1,11 @@
+t=2023-02-09T14:57:36-0500 lvl=info msg="no configuration paths supplied"
+t=2023-02-09T14:57:36-0500 lvl=info msg="using configuration at default config path" path=/home/kali/.config/ngrok/ngrok.yml
+t=2023-02-09T14:57:36-0500 lvl=info msg="open config file" path=/home/kali/.config/ngrok/ngrok.yml err=nil
+t=2023-02-09T14:57:36-0500 lvl=info msg="starting web service" obj=web addr=127.0.0.1:4040
+t=2023-02-09T14:57:36-0500 lvl=info msg="tunnel session started" obj=tunnels.session
+t=2023-02-09T14:57:36-0500 lvl=info msg="client session established" obj=csess id=0c577fbf3fee
+t=2023-02-09T14:57:36-0500 lvl=info msg="started tunnel" obj=tunnels name=command_line addr=//localhost:9999 url=tcp://7.tcp.eu.ngrok.io:13540
+t=2023-02-09T14:57:36-0500 lvl=info msg="update available" obj=updater
+t=2023-02-09T15:05:21-0500 lvl=info msg="received stop request" obj=app stopReq="{err:<nil> restart:false}"
+t=2023-02-09T15:05:21-0500 lvl=info msg="session closing" obj=tunnels.session err=nil
+t=2023-02-09T15:05:21-0500 lvl=info msg="accept failed" obj=csess id=0c577fbf3fee err="reconnecting session closed"
