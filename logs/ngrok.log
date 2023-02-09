@@ -1,7 +1,0 @@
-t=2022-12-17T11:09:05-0500 lvl=info msg="no configuration paths supplied"
-t=2022-12-17T11:09:05-0500 lvl=info msg="using configuration at default config path" path=/home/kali/.config/ngrok/ngrok.yml
-t=2022-12-17T11:09:05-0500 lvl=info msg="open config file" path=/home/kali/.config/ngrok/ngrok.yml err=nil
-t=2022-12-17T11:09:05-0500 lvl=info msg="starting web service" obj=web addr=127.0.0.1:4040
-t=2022-12-17T11:09:06-0500 lvl=info msg="tunnel session started" obj=tunnels.session
-t=2022-12-17T11:09:06-0500 lvl=info msg="client session established" obj=csess id=77c8b9b89a1b
-t=2022-12-17T11:09:06-0500 lvl=info msg="started tunnel" obj=tunnels name=command_line addr=//localhost:9999 url=tcp://6.tcp.eu.ngrok.io:14946
