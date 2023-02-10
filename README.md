@@ -38,5 +38,6 @@ This means that blackbox allows us to put commands really fast, executing malici
 - ~~Delete useless code~~
 - ~~Optimize main code deleting the duplicate code~~
 - Improve current RCE to RCE Stealth Mode (https://www.elladodelmal.com/2017/07/arducky-un-rubber-ducky-hecho-sobre.html)
+- Add the possibility to change the speed of the device from 0.5 (very fast) to 5 (very slow)
 - Add new payloads and possibilities
 - Make a video of how works
