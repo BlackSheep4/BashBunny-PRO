@@ -174,6 +174,4 @@ if grep -qa 'docker' /proc/1/cgroup; then
     banner
     update_os
     dependencies
-else
-    exit 1
 fi
