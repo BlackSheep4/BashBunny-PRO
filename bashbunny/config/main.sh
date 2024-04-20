@@ -128,24 +128,30 @@ function dependencies() {
 # Install docker
 function docker_installation() {
     log "[+] Installing docker"
-    curl -fsSL https://get.docker.com | sh >> "$log_file" 2>&1
-
+    
+    which docker
     if [[ $? -eq 0 ]]; then
-        docker --version >> "$log_file" 2>&1
-        if [[ $? -eq 0 ]]; then
-            log "[+] Docker installed successfully."
-            log "[+] Adding user to Docker group..."
-            sudo usermod -aG docker $USER >> "$log_file" 2>&1
-            if [[ $? -eq 0 ]]; then
-                log "[+] User $USER has been added successfully to the Docker group."
-            else
-                log "[!] Failed to add $USER to the Docker group. Please check the log for details."
-            fi
-        else
-            log "[!] Docker has not been installed successfully. Please check the log for details."
-        fi        
+        log "[+] Docker were installed. Avoiding installation..."
     else
-        log "[!] Docker installation failed. Please check the log for details."
+        curl -fsSL https://get.docker.com | sh >> "$log_file" 2>&1
+
+        if [[ $? -eq 0 ]]; then
+            docker --version >> "$log_file" 2>&1
+            if [[ $? -eq 0 ]]; then
+                log "[+] Docker installed successfully."
+                log "[+] Adding user to Docker group..."
+                sudo usermod -aG docker $USER >> "$log_file" 2>&1
+                if [[ $? -eq 0 ]]; then
+                    log "[+] User $USER has been added successfully to the Docker group."
+                else
+                    log "[!] Failed to add $USER to the Docker group. Please check the log for details."
+                fi
+            else
+                log "[!] Docker has not been installed successfully. Please check the log for details."
+            fi        
+        else
+            log "[!] Docker installation failed. Please check the log for details."
+        fi
     fi
 }
 
