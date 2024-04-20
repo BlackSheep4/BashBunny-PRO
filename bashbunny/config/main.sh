@@ -32,7 +32,7 @@ fi
 # Show banner
 function banner() {
     clear
-    source config/banner.sh
+    source src/banner.sh
 }
 
 function update_os() {
