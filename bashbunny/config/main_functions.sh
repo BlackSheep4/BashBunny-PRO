@@ -161,7 +161,6 @@ function build_docker_image() {
 
     # Log and perform Docker build
     log "[+] Building Docker Image" >> "$log_file" 2>&1
-    echo "Building Docker image from directory: $HOME/BashBunny/bashbunny/"
 
     # Execute Docker build
     docker build -t "$docker_image_name" "$HOME/BashBunny/bashbunny/" >> "$log_file" 2>&1
