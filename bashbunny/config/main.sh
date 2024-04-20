@@ -49,7 +49,7 @@ function update_os() {
     fi
 
     # Upgrade the system
-    log "[!] Upgrading the system. Be patient"
+    log "[+] Upgrading the system. Be patient"
     apt upgrade -y >> "$log_file" 2>&1
     if [[ $? -eq 0 ]]; then
         log "[+] System upgrade completed successfully."
@@ -64,7 +64,7 @@ function dependencies() {
     log "[+] Installing dependencies. Be patient"
     
     # Metasploit
-    log "[!] Installing Metasploit"
+    log "[+] Installing Metasploit"
     curl -o msfinstall $metasploit_package >> "$log_file" 2>&1 && chmod 755 msfinstall >> "$log_file" 2>&1
 
     if [[ $? -eq 0 ]]; then
@@ -91,12 +91,12 @@ function dependencies() {
 
     if [[ $? -eq 0 ]]; then
         log "[+] SSH installed successfully"
-        log "[!] Generating keys..."
+        log "[+] Generating keys..."
         ssh-keygen -t rsa -b 2048 -f "$ssh_path" -N "" >> "$log_file" 2>&1
         if [[ $? -eq 0 ]]; then
-            log "SSH Keys successfully generated in: $ssh_path"
+            log "[+] SSH Keys successfully generated in: $ssh_path"
         else
-            log "SSH Keys has not been created due an error. Please check the log for details."
+            log "[!] SSH Keys has not been created due an error. Please check the log for details."
             exit 1
         fi
     else
@@ -106,7 +106,7 @@ function dependencies() {
 
     # Snap installation
     log "[+] Installing snap"
-    apt install snap -y >> "$log_file" 2>&1
+    apt install snapd -y >> "$log_file" 2>&1
     if [[ $? -eq 0 ]]; then
         log "[+] Snap installed successfully"
     else
