@@ -13,12 +13,12 @@ chmod 664 "$log_file"
 trap ctrl_c INT
 
 function ctrl_c() {
-    log -e "[!] Exiting..."
+    log "[!] Exiting..."
     exit
 }
 
 function log() {
-    log "$(date '+%Y-%m-%d %H:%M:%S') - $*" >> "$log_file"
+    echo "$(date '+%Y-%m-%d %H:%M:%S') - $*" >> "$log_file"
 }
 
 
@@ -66,7 +66,6 @@ function dependencies() {
         exit 1
     fi
 
-
     # Git
     log "[+] Installing git"
     apt install git -y > /dev/null
@@ -78,7 +77,6 @@ function dependencies() {
         exit 1
     fi
 
-
     # SSH
     log "[+] Installing ssh"
     apt install ssh -y > /dev/null
@@ -86,7 +84,7 @@ function dependencies() {
     if [[ $? -eq 0 ]]; then
         log "[+] SSH installed successfully"
         log "[!] Generating keys..."
-        ssh-keygen -t rsa -b 2048 -f "$ssh_path" -N ""
+        ssh-keygen -t rsa -b 2048 -f "$ssh_path" -N "" >> "$log_file" 2>&1
         if [[ $? -eq 0 ]]; then
             log "SSH Keys successfully generated in: $ssh_path"
         else
@@ -119,7 +117,6 @@ function dependencies() {
     fi
 }
 
-log
 update_os
 banner
 dependencies
