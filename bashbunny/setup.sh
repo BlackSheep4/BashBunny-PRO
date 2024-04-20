@@ -8,10 +8,7 @@ if [[ $EUID -ne 0 ]]; then
     exit 1
 else
     # Call functions
-    
-    echo "FUNCION BANNER TERMINADA"
+    banner
     update_os
-    echo "FUNCION UPDATE_OS TERMINADA"
     docker_installation
-    echo "FUNCION DOCKER TERMINADA"
 fi
