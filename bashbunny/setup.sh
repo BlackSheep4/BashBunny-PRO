@@ -14,7 +14,7 @@ trap ctrl_c INT
 
 function ctrl_c() {
     log "[!] Exiting..."
-    exit
+    exit 0
 }
 
 function log() {
