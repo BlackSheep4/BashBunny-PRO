@@ -2,8 +2,8 @@
 
 # Global variables
 metasploit_package='https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb'
-ssh_path="$HOME/.ssh/id_rsa"
-log_file="$HOME/bashbunny/logs/logs.log"
+ssh_path="$HOME/BashBunny/bashbunny/.ssh/id_rsa"
+log_file="$HOME/BashBunny/bashbunny/logs/logs.log"
 
 # Control the output
 trap ctrl_c INT
