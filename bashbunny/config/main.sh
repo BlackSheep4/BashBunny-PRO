@@ -157,23 +157,28 @@ function docker_installation() {
 }
 
 function build_docker_image() {
-    # Build Docker Image
+    local docker_image_name="bashbunny-docker-image"  # Define the Docker image name
+
+    # Log and perform Docker build
     log "[+] Building Docker Image" >> "$log_file" 2>&1
-    pwd
-    docker build -t $docker_image_name $HOME/BashBunny/bashbunny/Dockerfile >> "$log_file" 2>&1
-    pwd
+    echo "Building Docker image from directory: $HOME/BashBunny/bashbunny/"
+
+    # Execute Docker build
+    docker build -t "$docker_image_name" "$HOME/BashBunny/bashbunny/" >> "$log_file" 2>&1
 
     if [[ $? -eq 0 ]]; then
+        echo "Docker image built successfully."
+        log "[+] Docker image built successfully." >> "$log_file" 2>&1
+
         # Execute Docker Container exposing port 80
-        docker run -p 80:80 $docker_image_name
-        if grep -qa 'docker' /proc/1/cgroup; then
-            log
-            banner
-            update_os
-            dependencies
-        fi
+        docker run -d -p 80:80 --name bashbunny-container "$docker_image_name"
+
+        echo "Docker container started successfully."
+        log "[+] Docker container started successfully." >> "$log_file" 2>&1
     else
-        log "[!] Docker Build has failed. Please check the log for details."
+        echo "Docker build failed. Check log for details."
+        log "[!] Docker Build has failed. Please check the log for details." >> "$log_file" 2>&1
     fi
 }
+
 
