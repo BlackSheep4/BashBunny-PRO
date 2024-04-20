@@ -5,10 +5,6 @@ metasploit_package='https://raw.githubusercontent.com/rapid7/metasploit-omnibus/
 ssh_path="$HOME/.ssh/id_rsa"
 log_file="$HOME/bashbunny/logs/logs.log"
 
-# Prepare log file
-touch "$log_file"
-chmod 664 "$log_file"
-
 # Control the output
 trap ctrl_c INT
 
@@ -17,9 +13,21 @@ function ctrl_c() {
     exit 0
 }
 
+# Create a log file
 function log() {
     echo "$(date '+%Y-%m-%d %H:%M:%S') - $*" >> "$log_file"
 }
+
+# Prepare log file
+log "[+] Checking if log file exists..."
+if [ -f "$log_file" ]; then
+    log "[+] $log_file found. No need to create a new file."
+else
+    mkdir -p "$(dirname "$log_file")" # Ensures the directory for the log file exists
+    touch "$log_file"
+    chmod 664 "$log_file"
+    log "[+] Log file created at $log_file"
+fi
 
 # Show banner
 function banner() {
@@ -35,7 +43,7 @@ function update_os() {
     if [[ $? -eq 0 ]]; then
         log "[+] System updated successfully"
     else
-        log "[!] System has not been updated due an error. Please try again later"
+        log "[!] System has not been updated due an error. Please check the log for details."
         exit 1
     fi
 
@@ -45,7 +53,7 @@ function update_os() {
     if [[ $? -eq 0 ]]; then
         log "[+] System upgrade completed successfully."
     else
-        log "[!] System has not been updated due an error. Please try again later"
+        log "[!] System has not been updated due an error. Please check the log for details."
         exit 1
     fi
 }
@@ -61,7 +69,7 @@ function dependencies() {
     if [[ $? -eq 0 ]]; then
         log "[+] Metasploit installed successfully"
     else
-        log "[!] Metasploit has not been installed due an error. Please try again later"
+        log "[!] Metasploit has not been installed due an error. Please check the log for details."
         exit 1
     fi
 
@@ -72,12 +80,12 @@ function dependencies() {
     if [[ $? -eq 0 ]]; then
         log "[+] Git installed successfully"
     else
-        log "[!] Git has not been installed due an error. Please try again later"
+        log "[!] Git has not been installed due an error. Please check the log for details."
         exit 1
     fi
 
-    # SSH
-    log "[+] Installing ssh"
+    # OpenSSH
+    log "[+] Installing OpenSSH"
     apt install ssh -y >> "$log_file" 2>&1
 
     if [[ $? -eq 0 ]]; then
@@ -87,11 +95,11 @@ function dependencies() {
         if [[ $? -eq 0 ]]; then
             log "SSH Keys successfully generated in: $ssh_path"
         else
-            log "SSH Keys has not been created due an error. Please try again later"
+            log "SSH Keys has not been created due an error. Please check the log for details."
             exit 1
         fi
     else
-        log "[!] SSH has not been installed due an error. Please try again later"
+        log "[!] SSH has not been installed due an error. Please check the log for details."
         exit 1
     fi
 
@@ -101,7 +109,7 @@ function dependencies() {
     if [[ $? -eq 0 ]]; then
         log "[+] Snap installed successfully"
     else
-        log "[!] Snap has not been installed due an error. Please try again later"
+        log "[!] Snap has not been installed due an error. Please check the log for details."
         exit 1
     fi
 
@@ -111,26 +119,40 @@ function dependencies() {
     if [[ $? -eq 0 ]]; then
         log "[+] Ngrok installed successfully"
     else
-        log "[!] Ngrok has not been installed due an error. Please try again later"
+        log "[!] Ngrok has not been installed due an error. Please check the log for details."
         exit 1
     fi
 }
 
 # Install docker
-function docker() {
+function docker_installation() {
     log "[+] Installing docker"
-    curl -sSL https://get.docker.com | sh >> "$log_file" 2>&1
+    curl -fsSL https://get.docker.com | sh >> "$log_file" 2>&1
 
     if [[ $? -eq 0 ]]; then
-        log "[+] Docker installed successfully"
-        log "[+] Adding user to docker group"
-        sudo usermod -aG docker $USER >> "$log_file" 2>&1
+        docker --version >> "$log_file" 2>&1
         if [[ $? -eq 0 ]]; then
-            log "[+] User $USER has been added successfully to the group"
+            log "[+] Docker installed successfully."
+            log "[+] Adding user to Docker group..."
+            sudo usermod -aG docker $USER >> "$log_file" 2>&1
+            if [[ $? -eq 0 ]]; then
+                log "[+] User $USER has been added successfully to the Docker group."
+            else
+                log "[!] Failed to add $USER to the Docker group. Please check the log for details."
+            fi
         else
-            log "[!] User $USER has not been added to the docker group due an error. Please try again later"
-        fi
+            log "[!] Docker has not been installed successfully. Please check the log for details."
+        fi        
     else
-        log "[!] Docker has not been installed due an error. Please try again later"
+        log "[!] Docker installation failed. Please check the log for details."
     fi
 }
+
+if [[ $EUID -ne 0 ]]; then
+    echo "[!] This script must to be run as root" 1>&2
+else
+    # Call functions
+    update_os
+    banner
+    dependencies
+fi
