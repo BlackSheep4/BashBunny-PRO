@@ -160,7 +160,7 @@ function build_docker_image() {
     # Build Docker Image
     log "[+] Building Docker Image" >> "$log_file" 2>&1
     pwd
-    docker build -t $docker_image_name . >> "$log_file" 2>&1
+    docker build -t $docker_image_name $HOME/BashBunny/bashbunny/dockerfile >> "$log_file" 2>&1
     pwd
 
     if [[ $? -eq 0 ]]; then
