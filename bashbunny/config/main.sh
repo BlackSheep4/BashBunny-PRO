@@ -9,10 +9,6 @@ log_file="$HOME/bashbunny/logs/logs.log"
 touch "$log_file"
 chmod 664 "$log_file"
 
-# Add program to path
-echo "export PATH="$HOME/bin:$PATH"" >> ~/.bashrc
-source ~/.bashrc
-
 # Control the output
 trap ctrl_c INT
 
@@ -60,7 +56,7 @@ function dependencies() {
     
     # Metasploit
     log "[!] Installing Metasploit"
-    curl -o msfinstall $metasploit_package > /dev/null 2>&1 && chmod 755 msfinstall > /dev/null 2>&1
+    curl -o msfinstall $metasploit_package >> "$log_file" 2>&1 && chmod 755 msfinstall >> "$log_file" 2>&1
 
     if [[ $? -eq 0 ]]; then
         log "[+] Metasploit installed successfully"
@@ -71,7 +67,7 @@ function dependencies() {
 
     # Git
     log "[+] Installing git"
-    apt install git -y > /dev/null
+    apt install git -y >> "$log_file" 2>&1
 
     if [[ $? -eq 0 ]]; then
         log "[+] Git installed successfully"
@@ -82,7 +78,7 @@ function dependencies() {
 
     # SSH
     log "[+] Installing ssh"
-    apt install ssh -y > /dev/null
+    apt install ssh -y >> "$log_file" 2>&1
 
     if [[ $? -eq 0 ]]; then
         log "[+] SSH installed successfully"
@@ -101,7 +97,7 @@ function dependencies() {
 
     # Snap installation
     log "[+] Installing snap"
-    apt install snap -y > /dev/null
+    apt install snap -y >> "$log_file" 2>&1
     if [[ $? -eq 0 ]]; then
         log "[+] Snap installed successfully"
     else
@@ -120,6 +116,21 @@ function dependencies() {
     fi
 }
 
-update_os
-banner
-dependencies
+# Install docker
+function docker() {
+    log "[+] Installing docker"
+    curl -sSL https://get.docker.com | sh >> "$log_file" 2>&1
+
+    if [[ $? -eq 0 ]]; then
+        log "[+] Docker installed successfully"
+        log "[+] Adding user to docker group"
+        sudo usermod -aG docker $USER >> "$log_file" 2>&1
+        if [[ $? -eq 0 ]]; then
+            log "[+] User $USER has been added successfully to the group"
+        else
+            log "[!] User $USER has not been added to the docker group due an error. Please try again later"
+        fi
+    else
+        log "[!] Docker has not been installed due an error. Please try again later"
+    fi
+}

@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Sourcing the function update_os inside main.sh
+source $HOME/bashbunny/config/main.sh
+
 function update_os() {
     # Update the system
     log "[+] Updating the system. Be patient"
@@ -23,5 +26,3 @@ function update_os() {
     fi
 }
 
-curl -sSL https://get.docker.com | sh
-sudo usermod -aG docker $USER
