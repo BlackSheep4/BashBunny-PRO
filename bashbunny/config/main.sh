@@ -159,7 +159,7 @@ function docker_installation() {
 function build_docker_image() {
     # Build Docker Image
     log "[+] Building Docker Image" >> "$log_file" 2>&1
-    docker build -t $docker_image_name $HOME/BashBunny/bashbunny/dockerfile >> "$log_file" 2>&1
+    docker build -t $docker_image_name . >> "$log_file" 2>&1
 
     if [[ $? -eq 0 ]]; then
         # Execute Docker Container exposing port 80
