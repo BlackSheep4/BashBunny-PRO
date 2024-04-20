@@ -180,5 +180,3 @@ function build_docker_image() {
         log "[!] Docker Build has failed. Please check the log for details." >> "$log_file" 2>&1
     fi
 }
-
-
