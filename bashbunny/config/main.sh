@@ -15,7 +15,8 @@ function ctrl_c() {
 
 # Create a log file
 function log() {
-    echo "$(date '+%Y-%m-%d %H:%M:%S') - $*" >> "$log_file"
+    local msg="$(date '+%Y-%m-%d %H:%M:%S') - $*"
+    echo "$msg" | tee -a "$log_file"
 }
 
 # Prepare log file
