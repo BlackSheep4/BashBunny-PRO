@@ -11,4 +11,5 @@ else
     banner
     update_os
     docker_installation
+    build_docker_image
 fi

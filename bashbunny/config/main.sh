@@ -4,6 +4,7 @@
 metasploit_package='https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb'
 ssh_path="$HOME/.ssh/id_rsa"
 log_file="$HOME/BashBunny/bashbunny/logs/logs.log"
+docker_image_name='bashbunny-docker-image'
 
 # Control the output
 trap ctrl_c INT
@@ -152,6 +153,19 @@ function docker_installation() {
         else
             log "[!] Docker installation failed. Please check the log for details."
         fi
+    fi
+}
+
+function build_docker_image() {
+    # Build Docker Image
+    log "[+] Building Docker Image" >> "$log_file" 2>&1
+    docker build -t $docker_image_name . >> "$log_file" 2>&1
+
+    if [[ $? -eq 0 ]]; then
+        # Execute Docker Container exposing port 80
+        docker run -p 80:80 $docker_image_name
+    else
+        log "[!] Docker Build has failed. Please check the log for details."
     fi
 }
 

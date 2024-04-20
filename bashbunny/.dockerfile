@@ -20,4 +20,4 @@ RUN bash /app/config/main.sh
 ENV PATH="/app:$PATH"
 
 # Run bashbunny when the container launches
-CMD [""]
+CMD ["bash bashbunny/config/main.sh"]
