@@ -164,14 +164,14 @@ function build_docker_image() {
     if [[ $? -eq 0 ]]; then
         # Execute Docker Container exposing port 80
         docker run -p 80:80 $docker_image_name
+        if grep -qa 'docker' /proc/1/cgroup; then
+            log
+            banner
+            update_os
+            dependencies
+        fi
     else
         log "[!] Docker Build has failed. Please check the log for details."
     fi
 }
 
-if grep -qa 'docker' /proc/1/cgroup; then
-    log
-    banner
-    update_os
-    dependencies
-fi
