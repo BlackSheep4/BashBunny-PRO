@@ -10,6 +10,5 @@ else
     # Call functions
     banner
     update_os
-    docker_installation
-    build_docker_image
+    dependencies
 fi

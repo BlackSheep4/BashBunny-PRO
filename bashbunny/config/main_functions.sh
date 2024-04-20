@@ -167,16 +167,13 @@ function build_docker_image() {
     docker build -t "$docker_image_name" "$HOME/BashBunny/bashbunny/" >> "$log_file" 2>&1
 
     if [[ $? -eq 0 ]]; then
-        echo "Docker image built successfully."
         log "[+] Docker image built successfully." >> "$log_file" 2>&1
 
         # Execute Docker Container exposing port 80
         docker run -d -p 80:80 --name bashbunny-container "$docker_image_name"
 
-        echo "Docker container started successfully."
         log "[+] Docker container started successfully." >> "$log_file" 2>&1
     else
-        echo "Docker build failed. Check log for details."
         log "[!] Docker Build has failed. Please check the log for details." >> "$log_file" 2>&1
     fi
 }
