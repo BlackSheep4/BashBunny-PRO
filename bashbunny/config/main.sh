@@ -128,10 +128,10 @@ function dependencies() {
 # Install docker
 function docker_installation() {
     log "[+] Installing docker"
-    
-    which docker
+    which docker >> "$log_file" 2>&1
+
     if [[ $? -eq 0 ]]; then
-        log "[+] Docker were installed. Avoiding installation..."
+        log "[+] Docker was already installed. Avoiding installation..."
     else
         curl -fsSL https://get.docker.com | sh >> "$log_file" 2>&1
 
