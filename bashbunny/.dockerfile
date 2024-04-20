@@ -14,10 +14,10 @@ RUN chmod +x /app/bashbunny
 RUN pip install --no-cache-dir -r /app/requirements.txt
 
 # Run setup.sh to configure the environment
-RUN bash /app/setup.sh
+RUN bash /app/config/main.sh
 
 # Define environment variable
 ENV PATH="/app:$PATH"
 
 # Run bashbunny when the container launches
-CMD ["setup.sh"]
+CMD [""]

@@ -148,11 +148,6 @@ function docker_installation() {
     fi
 }
 
-if [[ $EUID -ne 0 ]]; then
-    echo "[!] This script must to be run as root" 1>&2
-else
-    # Call functions
-    update_os
-    banner
-    dependencies
-fi
+banner
+update_os
+dependencies
