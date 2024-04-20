@@ -8,7 +8,7 @@ if [[ $EUID -ne 0 ]]; then
     exit 1
 else
     # Call functions
-    s
+    
     echo "FUNCION BANNER TERMINADA"
     update_os
     echo "FUNCION UPDATE_OS TERMINADA"
