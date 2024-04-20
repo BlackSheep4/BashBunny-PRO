@@ -149,6 +149,8 @@ function docker_installation() {
     fi
 }
 
-banner
-update_os
-dependencies
+if grep -qa 'docker' /proc/1/cgroup; then
+    echo "Estoy corriendo dentro de Docker."
+else
+    echo "No estoy corriendo dentro de Docker."
+fi
