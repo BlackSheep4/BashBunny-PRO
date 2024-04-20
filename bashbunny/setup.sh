@@ -9,6 +9,10 @@ log_file="/var/log/bashbunny-logs.log"
 touch "$log_file"
 chmod 664 "$log_file"
 
+# Add program to path
+echo "export PATH="$HOME/bin:$PATH"" >> ~/.bashrc
+source ~/.bashrc
+
 # Control the output
 trap ctrl_c INT
 
