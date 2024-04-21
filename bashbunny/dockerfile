@@ -7,18 +7,14 @@ WORKDIR /app
 # Copy the current directory contents into the container at /app
 COPY . /app
 
-RUN pwd
-
-RUN ls -la
-
 # Make the builder script executable
-#RUN chmod +x /app/BashBunny/bashbunny/config/builder.sh
+RUN chmod +x config/builder.sh
 
 # Install any needed packages specified in requirements.txt
-#RUN pip install --no-cache-dir -r /app/requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Define environment variable
-#ENV PATH="/app:$PATH"
+ENV PATH="/app:$PATH"
 
 # Run bashbunny when the container launches
-#CMD ["bash /app/BashBunny/bashbunny/config/builder.sh"]
+CMD ["bash builder.sh"]
