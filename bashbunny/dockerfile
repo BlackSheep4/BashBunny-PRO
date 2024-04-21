@@ -8,13 +8,13 @@ WORKDIR /app
 COPY . /app
 
 # Install any needed packages specified in requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+#RUN pip install -r requirements.txt
 
 # Make the builder script executable
 RUN chmod +x config/builder.sh
 
 # Run the builder
-RUN sh config/builder.sh
+RUN sh /config/builder.sh
 
 # Define environment variable
 ENV PATH="/app:$PATH"
