@@ -8,7 +8,7 @@ echo -e '''
           || ||   // //           |_____||__|__| \___||__|__|    |_____| \__,_||__|__||__|__||____/
           || ||  // //
           || || || ||
-          \\,\|,|\_//                               Coded by: \033[31mBlackSheep4\033[37m
+          \\,\|,|\_//                               Coded by: BlackSheep4
             \\)\)\\|/                           https://github.com/BlackSheep4
             )-."" .-(
           //^\` `/^\\
@@ -22,5 +22,5 @@ echo -e '''
               '---'
 '''
 
-echo -e "\033[41m> What's new old man? Welcome to Bash Bunny! Pss! Is your blackbox ready?\033[40m"
+echo -e "Use with caution!"
 echo -e ""
