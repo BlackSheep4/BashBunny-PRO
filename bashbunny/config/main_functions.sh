@@ -167,6 +167,14 @@ function build_docker_image() {
 
     if [[ $? -eq 0 ]]; then
         log "[+] Docker image built successfully." >> "$log_file" 2>&1
+        
+        log "[+] Removing old docker images..."
+        docker rm $(docker ps -a -q)
+        if [[ $? -eq 0 ]]; then
+            log "[+] Old docker images has been removed"
+        else
+            log "[!] There are no images to delete!"
+        fi
 
         # Execute Docker Container exposing port 80
         docker run -d -p 80:80 --name bashbunny-container "$docker_image_name"
