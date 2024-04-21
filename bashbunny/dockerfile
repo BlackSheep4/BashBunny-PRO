@@ -14,7 +14,11 @@ COPY . /app
 RUN chmod +x config/builder.sh
 
 # Run the builder
-RUN sh /config/builder.sh
+RUN pwd
+RUN ls -la
+
+# Run the builder
+RUN bash /config/builder.sh
 
 # Define environment variable
 ENV PATH="/app:$PATH"
