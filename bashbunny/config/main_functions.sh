@@ -168,12 +168,14 @@ function build_docker_image() {
     if [[ $? -eq 0 ]]; then
         log "[+] Docker image built successfully." >> "$log_file" 2>&1
         
-        log "[+] Removing old docker images..."
-        docker rm $(docker ps -a -q)
+        # Remove old containers that are not running anymore
+        log "[+] Removing old Docker containers..."
+        docker container prune -f >> "$log_file" 2>&1
+
         if [[ $? -eq 0 ]]; then
-            log "[+] Old docker images has been removed"
+            log "[+] Old docker containers have been removed"
         else
-            log "[!] There are no images to delete!"
+            log "[!] There are no containers to delete"
         fi
 
         # Execute Docker Container exposing port 80
