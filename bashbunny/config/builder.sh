@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Sourcing the function banner, update_os and docker_installation inside main_functions.sh
-source $HOME/BashBunny/bashbunny/config/main_functions.sh
+source $HOME/app/config/main_functions.sh
 
 if [[ $EUID -ne 0 ]]; then
     echo "[!] This script must to be run as root" 1>&2
