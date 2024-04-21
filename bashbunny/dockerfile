@@ -7,6 +7,10 @@ WORKDIR /app
 # Copy the current directory contents into the container at /app
 COPY . /app
 
+RUN pwd
+
+RUN ls -la
+
 # Make the builder script executable
 #RUN chmod +x /app/BashBunny/bashbunny/config/builder.sh
 
