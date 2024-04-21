@@ -7,18 +7,18 @@ WORKDIR /app
 # Copy the current directory contents into the container at /app
 COPY . /app
 
-# Install any needed packages specified in requirements.txt
+# Optionally install any needed packages specified in requirements.txt
 #RUN pip install -r requirements.txt
 
 # Make the builder script executable
 RUN chmod +x config/builder.sh
 
-# Run the builder
+# Debugging: Check current working directory and list contents
 RUN pwd
 RUN ls -la
 
-# Run the builder
-RUN bash /config/builder.sh
+# Run the builder script correctly
+RUN bash config/builder.sh
 
 # Define environment variable
 ENV PATH="/app:$PATH"
