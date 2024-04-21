@@ -179,9 +179,14 @@ function build_docker_image() {
         fi
 
         # Execute Docker Container exposing port 80
-        docker run -d -p 80:80 --name bashbunny-container "$docker_image_name"
+        log "[+] Executing a new docker container"
+        docker run -d -p 80:80 --name bashbunny-container "$docker_image_name" >> "$log_file" 2>&1
+        if [[ $? -eq 0 ]]; then
+            log "[+] Docker container started successfully." >> "$log_file" 2>&1
+        else
+            log "[!] An error occurred with the container. Please check the log for details."
+        fi
 
-        log "[+] Docker container started successfully." >> "$log_file" 2>&1
     else
         log "[!] Docker Build has failed. Please check the log for details." >> "$log_file" 2>&1
     fi
